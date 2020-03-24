@@ -1,15 +1,21 @@
+import 'dart:collection';
+
 import 'package:flutter/foundation.dart';
 import 'task.dart';
 
 class TaskData extends ChangeNotifier {
-  List<Task> tasks = [
+  List<Task> _tasks = [
     Task(taskName: 'sample1', isDone: false),
     Task(taskName: 'sample2', isDone: false),
     Task(taskName: 'sample3', isDone: false),
   ];
 
   int get taskCount {
-    return tasks.length;
+    return _tasks.length;
+  }
+
+  UnmodifiableListView<Task> get tasks {
+    return UnmodifiableListView(_tasks);
   }
 
   void changeCheckBoxState(Task task) {
@@ -18,7 +24,7 @@ class TaskData extends ChangeNotifier {
   }
 
   void addNewTask(Task newTask) {
-    tasks.add(newTask);
+    _tasks.add(newTask);
     notifyListeners();
   }
 }
